@@ -1,0 +1,114 @@
+
+
+.myRow{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content:stretch;
+    flex-wrap: wrap;
+}
+
+
+.myColumn{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: flex-start;
+    justify-content:stretch;
+    /* border: 1px solid gray; */
+}
+
+
+#formulario{
+    margin-top:50px;
+    /* border: 1px solid gray;
+    border-radius: 4px;
+    background-color: rgb(204, 201, 201); */
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content:center;
+    flex-wrap: wrap;
+
+}
+
+/* .formulario{
+    border: 1px solid rgb(137, 163, 127);
+    border-radius: 4px;
+    background-color: rgb(176, 221, 178);
+} */
+
+
+.inputs{
+    display: flex;
+    flex-direction: row;
+    text-align:center;
+    align-items: baseline;
+    justify-content:flex-end;
+    /* flex-wrap: wrap; */
+    /* background-color: rgb(138, 153, 138);
+    border-radius: 4px;
+    border: 1px solid rgb(106, 121, 106); */
+    width: 100%;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-right: 10px;
+   
+}
+input, select{
+    border:none;
+    border-radius: 4px;
+    background-color: rgb(194, 212, 194);
+    margin-left:2%;
+}
+
+
+.inputs-button{
+    display: flex;
+    flex-direction: row;
+    text-align:center;
+    align-items: baseline;
+    justify-content:flex-end;
+    /* background-color: rgb(138, 153, 138);
+    border-radius: 4px;
+    border: 1px solid rgb(106, 121, 106); */
+    width: fit-content;
+    margin-right: 10px;
+    align-self: flex-end;
+    padding:2px;
+}
+
+#addMovie{
+    background-color: rgb(138, 153, 138);
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+.match{
+    cursor: pointer;
+    /* text-align:center; */
+    align-items: center;
+    /* justify-content:flex-end; */
+    border: 1px groove gray;
+    margin-bottom: 10px ;
+    margin-top: 10px;
+}
+
+.match:hover{
+    background-color: rgb(217, 241, 221);
+}
+
+#footer{
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content:center;
+    color: rgb(194, 212, 194);
+}
