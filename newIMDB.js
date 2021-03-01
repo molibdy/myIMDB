@@ -325,13 +325,12 @@ function createMovie(){
 };
 
 
-function activateSearch(){
-    $("#searchButton").show();
-}
 
-function searchByTitle(){
+
+
+function searchAll(){
     $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the movies that match your search:</h5>
+    <h5 class="modal-title">These are the matches we found:</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -341,7 +340,21 @@ function searchByTitle(){
                 
             </div>
   </div>`)
-    let count=0;
+  let count=0;
+  for (let i=0; i<people.length;i++){
+        if(people[i].name.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+        $("#matchesContainer").append(`
+            <div onclick="showProfessional(${people[i].id})" class="row match">
+                <div class="col-sm">
+                <img src="${people[i].picture}" alt="${people[i].name}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+                </div>
+                <div class="col-sm">
+                <h3>${people[i].name}</h3>
+                </div>
+            </div>`);
+        count++;
+        }
+    }
     for (let i=0; i<imdb.peliculas.length;i++){
         if(imdb.peliculas[i].title.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
             $("#matchesContainer").append(`
@@ -355,61 +368,6 @@ function searchByTitle(){
                 </div>`);
             count++;
         }
-    }
-    if(count===0){
-        $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
-    }
-}
-
-
-
-function searchByProfessional(){
-    $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the professionals that match your search:</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div id="matchesContainer" class="container-fluid">
-                
-            </div>
-  </div>`)
-    let count=0;
-    for (let i=0; i<people.length;i++){
-        if(people[i].name.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
-            $("#matchesContainer").append(`
-                <div onclick="showProfessional(${people[i].id})" class="row match">
-                    <div class="col-sm">
-                    <img src="${people[i].picture}" alt="${people[i].name}" style="max-width:100%; max-height:200px; height:auto;width:auto">
-                    </div>
-                    <div class="col-sm">
-                    <h3>${people[i].name}</h3>
-                    </div>
-                </div>`);
-            count++;
-        }
-    }
-    if(count===0){
-        $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
-    }
-}
-
-
-function searchByYear(){
-    $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the movies released in ${$('#searchBar').val()}:</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div id="matchesContainer" class="container-fluid">
-                
-            </div>
-  </div>`)
-    let count=0;
-    for (let i=0; i<imdb.peliculas.length;i++){
         if(imdb.peliculas[i].releaseYear==$('#searchBar').val()){
             $("#matchesContainer").append(`
                 <div onclick="showMovie(${i})" class="row match">
@@ -422,27 +380,6 @@ function searchByYear(){
                 </div>`);
             count++;
         }
-    }
-    if(count===0){
-        $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
-    }
-}
-
-
-function searchByCharacter(){
-    $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the movies that match your search:</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div id="matchesContainer" class="container-fluid">
-                
-            </div>
-  </div>`)
-    let count=0;
-    for (let i=0; i<imdb.peliculas.length;i++){
         if(imdb.peliculas[i].mainCharacterName.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
             $("#matchesContainer").append(`
                 <div onclick="showMovie(${i})" class="row match">
@@ -456,28 +393,6 @@ function searchByCharacter(){
                 </div>`);
             count++;
         }
-    }
-    if(count===0){
-        $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
-    }
-}
-
-
-
-function searchByGenre(){
-    $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the movies that match your search:</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div id="matchesContainer" class="container-fluid">
-                
-            </div>
-  </div>`)
-    let count=0;
-    for (let i=0; i<imdb.peliculas.length;i++){
         if(imdb.peliculas[i].genre.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
             $("#matchesContainer").append(`
                 <div onclick="showMovie(${i})" class="row match">
@@ -491,27 +406,6 @@ function searchByGenre(){
                 </div>`);
             count++;
         }
-    }
-    if(count===0){
-        $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
-    }
-}
-
-
-function searchByLanguage(){
-    $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the movies that match your search:</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div id="matchesContainer" class="container-fluid">
-                
-            </div>
-  </div>`)
-    let count=0;
-    for (let i=0; i<imdb.peliculas.length;i++){
         if(imdb.peliculas[i].language.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
             $("#matchesContainer").append(`
                 <div onclick="showMovie(${i})" class="row match">
@@ -525,27 +419,6 @@ function searchByLanguage(){
                 </div>`);
             count++;
         }
-    }
-    if(count===0){
-        $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
-    }
-}
-
-
-function searchByProducer(){
-    $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the movies that match your search:</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div id="matchesContainer" class="container-fluid">
-                
-            </div>
-  </div>`)
-    let count=0;
-    for (let i=0; i<imdb.peliculas.length;i++){
         if(imdb.peliculas[i].producer.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
             $("#matchesContainer").append(`
                 <div onclick="showMovie(${i})" class="row match">
@@ -559,26 +432,6 @@ function searchByProducer(){
                 </div>`);
             count++;
         }
-    }
-    if(count===0){
-        $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
-    }
-}
-
-function searchByDistributor(){
-    $("#modalFill").html(`<div class="modal-header">
-    <h5 class="modal-title">These are the movies that match your search:</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div id="matchesContainer" class="container-fluid">
-                
-            </div>
-  </div>`)
-    let count=0;
-    for (let i=0; i<imdb.peliculas.length;i++){
         if(imdb.peliculas[i].distributor.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
             $("#matchesContainer").append(`
                 <div onclick="showMovie(${i})" class="row match">
@@ -587,7 +440,33 @@ function searchByDistributor(){
                     </div>
                     <div class="col-sm">
                     <h3>${imdb.peliculas[i].title}</h3>
-                    <h5>Producer: ${imdb.peliculas[i].distributor}</h5>
+                    <h5>Distributor: ${imdb.peliculas[i].distributor}</h5>
+                    </div>
+                </div>`);
+            count++;
+        }
+        if(imdb.peliculas[i].nationality.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+            $("#matchesContainer").append(`
+                <div onclick="showMovie(${i})" class="row match">
+                    <div class="col-sm">
+                    <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+                    </div>
+                    <div class="col-sm">
+                    <h3>${imdb.peliculas[i].title}</h3>
+                    <h5>Nationality: ${imdb.peliculas[i].nationality}</h5>
+                    </div>
+                </div>`);
+            count++;
+        }
+        if(imdb.peliculas[i].distributor.isMCU && ($('#searchBar').val()).toLowerCase()=='mcu'){
+            $("#matchesContainer").append(`
+                <div onclick="showMovie(${i})" class="row match">
+                    <div class="col-sm">
+                    <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+                    </div>
+                    <div class="col-sm">
+                    <h3>${imdb.peliculas[i].title}</h3>
+                    <h5>This movie is part of the MCU</h5>
                     </div>
                 </div>`);
             count++;
@@ -597,6 +476,277 @@ function searchByDistributor(){
         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
     }
 }
+
+
+
+// function searchByTitle(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the movies that match your search:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<imdb.peliculas.length;i++){
+//         if(imdb.peliculas[i].title.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showMovie(${i})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${imdb.peliculas[i].title}</h3>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
+
+
+
+// function searchByProfessional(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the professionals that match your search:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<people.length;i++){
+//         if(people[i].name.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showProfessional(${people[i].id})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${people[i].picture}" alt="${people[i].name}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${people[i].name}</h3>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
+
+
+// function searchByYear(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the movies released in ${$('#searchBar').val()}:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<imdb.peliculas.length;i++){
+//         if(imdb.peliculas[i].releaseYear==$('#searchBar').val()){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showMovie(${i})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${imdb.peliculas[i].title}</h3>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
+
+
+// function searchByCharacter(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the movies that match your search:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<imdb.peliculas.length;i++){
+//         if(imdb.peliculas[i].mainCharacterName.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showMovie(${i})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${imdb.peliculas[i].title}</h3>
+//                     <h5>Main character's name: ${imdb.peliculas[i].mainCharacterName}</h5>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
+
+
+
+// function searchByGenre(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the movies that match your search:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<imdb.peliculas.length;i++){
+//         if(imdb.peliculas[i].genre.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showMovie(${i})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${imdb.peliculas[i].title}</h3>
+//                     <h5>Genre: ${imdb.peliculas[i].genre}</h5>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
+
+
+// function searchByLanguage(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the movies that match your search:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<imdb.peliculas.length;i++){
+//         if(imdb.peliculas[i].language.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showMovie(${i})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${imdb.peliculas[i].title}</h3>
+//                     <h5>Language: ${imdb.peliculas[i].language}</h5>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
+
+
+// function searchByProducer(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the movies that match your search:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<imdb.peliculas.length;i++){
+//         if(imdb.peliculas[i].producer.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showMovie(${i})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${imdb.peliculas[i].title}</h3>
+//                     <h5>Producer: ${imdb.peliculas[i].producer}</h5>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
+
+// function searchByDistributor(){
+//     $("#modalFill").html(`<div class="modal-header">
+//     <h5 class="modal-title">These are the movies that match your search:</h5>
+//     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>
+//   <div class="modal-body">
+//     <div id="matchesContainer" class="container-fluid">
+                
+//             </div>
+//   </div>`)
+//     let count=0;
+//     for (let i=0; i<imdb.peliculas.length;i++){
+//         if(imdb.peliculas[i].distributor.toLowerCase().includes(($('#searchBar').val()).toLowerCase())){
+//             $("#matchesContainer").append(`
+//                 <div onclick="showMovie(${i})" class="row match">
+//                     <div class="col-sm">
+//                     <img src="${imdb.peliculas[i].picture}" alt="${imdb.peliculas[i].title}" style="max-width:100%; max-height:200px; height:auto;width:auto">
+//                     </div>
+//                     <div class="col-sm">
+//                     <h3>${imdb.peliculas[i].title}</h3>
+//                     <h5>Producer: ${imdb.peliculas[i].distributor}</h5>
+//                     </div>
+//                 </div>`);
+//             count++;
+//         }
+//     }
+//     if(count===0){
+//         $("#matchesContainer").append(`<h3>We found no matches :(</h3>`);
+//     }
+// }
 
 
 
